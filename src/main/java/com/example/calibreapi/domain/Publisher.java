@@ -11,11 +11,10 @@ public class Publisher {
     @Id
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     private String sort;
-
-    private String link;
 
     // Getters and Setters
 }

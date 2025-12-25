@@ -11,6 +11,7 @@ public class Tag {
     @Id
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     // Getters and Setters

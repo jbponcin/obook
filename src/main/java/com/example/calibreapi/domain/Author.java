@@ -11,10 +11,12 @@ public class Author {
     @Id
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     private String sort;
 
+    @Column(nullable = false)
     private String link;
 
     // Getters and Setters

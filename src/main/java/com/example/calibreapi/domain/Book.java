@@ -9,8 +9,10 @@ import java.util.Set;
 public class Book {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
     private String sort;
@@ -19,7 +21,7 @@ public class Book {
 
     private LocalDateTime pubdate;
 
-    @Column(name = "series_index")
+    @Column(name = "series_index", nullable = false)
     private Double seriesIndex;
 
     @Column(name = "author_sort")
@@ -29,8 +31,10 @@ public class Book {
 
     private String lccn;
 
+    @Column(nullable = false)
     private String path;
 
+    @Column(nullable = false)
     private Integer flags;
 
     private String uuid;
@@ -38,7 +42,7 @@ public class Book {
     @Column(name = "has_cover")
     private Boolean hasCover;
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDateTime lastModified;
 
     @ManyToMany
