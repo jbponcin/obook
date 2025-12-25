@@ -37,3 +37,6 @@ out/
 .vscode/
 /temp_calibre_library/
 target/
+
+### Logs
+*.log
