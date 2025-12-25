@@ -1,6 +1,8 @@
 package com.example.calibreapi.domain;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Convert;
+import com.example.calibreapi.config.LocalDateTimeConverter;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -17,8 +19,10 @@ public class Book {
 
     private String sort;
 
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime timestamp;
 
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime pubdate;
 
     @Column(name = "series_index", nullable = false)
@@ -43,6 +47,7 @@ public class Book {
     private Boolean hasCover;
 
     @Column(name = "last_modified", nullable = false)
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime lastModified;
 
     @ManyToMany
