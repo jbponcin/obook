@@ -37,20 +37,20 @@ public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime,
 
         // Try parsing with different formats
         try {
-            // Try with offset (e.g., "1997-07-27 22:00:00+00:00")
-            return LocalDateTime.parse(databaseColumn, FORMATTER_WITH_OFFSET);
+            // Try with milliseconds and offset first, as it's the most specific
+            return LocalDateTime.parse(databaseColumn, FORMATTER_WITH_MILLIS_AND_OFFSET);
         } catch (DateTimeParseException e1) {
             try {
-                // Try without offset (e.g., "1997-07-27 22:00:00")
-                return LocalDateTime.parse(databaseColumn, FORMATTER_WITHOUT_OFFSET);
+                // Then try with milliseconds without offset
+                return LocalDateTime.parse(databaseColumn, FORMATTER_WITH_MILLIS);
             } catch (DateTimeParseException e2) {
                 try {
-                    // Try with milliseconds and offset (e.g., "1997-07-27 22:00:00.000+00:00")
-                    return LocalDateTime.parse(databaseColumn, FORMATTER_WITH_MILLIS_AND_OFFSET);
+                    // Then try with offset but no milliseconds
+                    return LocalDateTime.parse(databaseColumn, FORMATTER_WITH_OFFSET);
                 } catch (DateTimeParseException e3) {
                     try {
-                        // Try with milliseconds without offset (e.g., "1997-07-27 22:00:00.000")
-                        return LocalDateTime.parse(databaseColumn, FORMATTER_WITH_MILLIS);
+                        // Finally, try without offset or milliseconds
+                        return LocalDateTime.parse(databaseColumn, FORMATTER_WITHOUT_OFFSET);
                     } catch (DateTimeParseException e4) {
                         // If all attempts fail, rethrow the original exception or a new one
                         throw new RuntimeException("Failed to parse LocalDateTime from database column: " + databaseColumn, e4);
