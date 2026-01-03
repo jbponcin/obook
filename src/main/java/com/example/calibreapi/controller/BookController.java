@@ -1,6 +1,7 @@
 package com.example.calibreapi.controller;
 
 import com.example.calibreapi.dto.BookDto;
+import com.example.calibreapi.repository.BookProjection;
 import com.example.calibreapi.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,11 @@ public class BookController {
     @GetMapping
     public List<BookDto> findAll() {
         return bookService.findAll();
+    }
+
+    @GetMapping("/projected")
+    public List<BookProjection> findAllProjected() {
+        return bookService.findAllProjected();
     }
 
     @GetMapping("/{id}")

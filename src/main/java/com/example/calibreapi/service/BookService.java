@@ -2,6 +2,7 @@ package com.example.calibreapi.service;
 
 import com.example.calibreapi.dto.BookDto;
 import com.example.calibreapi.mapper.BookMapper;
+import com.example.calibreapi.repository.BookProjection;
 import com.example.calibreapi.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,13 @@ public class BookService {
 
     public List<BookDto> findAll() {
         return bookRepository.findAll()
-                .stream()
-                .map(bookMapper::toDto)
-                .collect(Collectors.toList());
+            .stream()
+            .map(bookMapper::toDto)
+            .collect(Collectors.toList());
+    }
+
+    public List<BookProjection> findAllProjected() {
+        return bookRepository.findAllProjectedBy();
     }
 
     public BookDto findById(Long id) {
