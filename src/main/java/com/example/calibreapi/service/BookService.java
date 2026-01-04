@@ -1,8 +1,8 @@
 package com.example.calibreapi.service;
 
 import com.example.calibreapi.dto.BookDto;
+import com.example.calibreapi.dto.BookSummaryDto;
 import com.example.calibreapi.mapper.BookMapper;
-import com.example.calibreapi.repository.BookProjection;
 import com.example.calibreapi.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,28 +20,36 @@ public class BookService {
         this.bookMapper = bookMapper;
     }
 
-    public List<BookDto> findAll() {
+    public List<BookSummaryDto> findAll() {
         return bookRepository.findAll()
-            .stream()
-            .map(bookMapper::toDto)
-            .collect(Collectors.toList());
+                .stream()
+                .map(bookMapper::toSummaryDto)
+                .collect(Collectors.toList());
     }
 
-    public List<BookProjection> findAllProjected() {
-        return bookRepository.findAllProjectedBy();
-    }
-
-    public BookDto findById(Long id) {
+    public Object findById(Long id, String view) {
         return bookRepository.findById(id)
-                .map(bookMapper::toDto)
+                .map(book -> {
+                    if (view == null) {
+                        return bookMapper.toDefaultDto(book);
+                    }
+                    switch (view) {
+                        case "summary":
+                            return bookMapper.toSummaryDto(book);
+                        case "detail":
+                            return bookMapper.toDetailDto(book);
+                        default:
+                            return bookMapper.toDefaultDto(book);
+                    }
+                })
                 .orElse(null);
-    }
-
-    public BookDto save(BookDto bookDto) {
-        return bookMapper.toDto(bookRepository.save(bookMapper.toEntity(bookDto)));
     }
 
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    public BookDto save(BookDto bookDto) {
+        return bookMapper.toDetailDto(bookRepository.save(bookMapper.toEntity(bookDto)));
     }
 }

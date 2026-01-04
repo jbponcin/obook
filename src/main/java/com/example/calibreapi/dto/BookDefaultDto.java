@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
-public class BookDto {
+public class BookDefaultDto {
     private Long id;
     private String title;
     private String sort;
@@ -21,10 +21,8 @@ public class BookDto {
     private String uuid;
     private Boolean hasCover;
     private LocalDateTime lastModified;
-    private Set<AuthorDto> authors;
-    private Set<TagDto> tags;
-    private SeriesDto series;
-    private PublisherDto publisher;
-    private CommentDto comment;
-    private Set<FormatDto> formats;
+    private Set<Long> authors;
+    private Set<Long> tags;
+    private Long series;
+    private Long publisher;
 }

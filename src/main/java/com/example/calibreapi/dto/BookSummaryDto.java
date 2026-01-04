@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
-public class BookDto {
+public class BookSummaryDto {
     private Long id;
     private String title;
     private String sort;
@@ -25,6 +25,4 @@ public class BookDto {
     private Set<TagDto> tags;
     private SeriesDto series;
     private PublisherDto publisher;
-    private CommentDto comment;
-    private Set<FormatDto> formats;
 }
