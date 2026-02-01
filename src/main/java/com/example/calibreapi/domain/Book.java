@@ -82,6 +82,12 @@ public class Book {
     )
     private Publisher publisher;
 
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    private Comment comment;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private Set<Format> formats;
+
     // Getters and Setters
 
     public Long getId() {
@@ -226,5 +232,21 @@ public class Book {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    public Set<Format> getFormats() {
+        return formats;
+    }
+
+    public void setFormats(Set<Format> formats) {
+        this.formats = formats;
     }
 }

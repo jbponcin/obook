@@ -1,6 +1,7 @@
 package com.example.calibreapi.controller;
 
 import com.example.calibreapi.dto.BookDto;
+import com.example.calibreapi.dto.BookSummaryDto;
 import com.example.calibreapi.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,24 +19,24 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDto> findAll() {
+    public List<BookSummaryDto> findAll() {
         return bookService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookDto> findById(@PathVariable Long id) {
-        BookDto bookDto = bookService.findById(id);
+    public ResponseEntity<Object> findById(@PathVariable Long id, @RequestParam(required = false) String view) {
+        Object bookDto = bookService.findById(id, view);
         return bookDto != null ? ResponseEntity.ok(bookDto) : ResponseEntity.notFound().build();
-    }
-
-    @PostMapping
-    public BookDto save(@RequestBody BookDto bookDto) {
-        return bookService.save(bookDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         bookService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping
+    public BookDto save(@RequestBody BookDto bookDto) {
+        return bookService.save(bookDto);
     }
 }
